@@ -44,6 +44,7 @@ def upgrade() -> None:
         sa.Column("distance_52w_high", sa.Float(), nullable=False),
         sa.Column("distance_52w_low", sa.Float(), nullable=False),
         sa.Column("volume_spike", sa.Float(), nullable=False),
+        sa.Column("return_3y", sa.Float(), nullable=False),
         sa.Column("last_price", sa.Float(), nullable=False),
         sa.Column("change_pct", sa.Float(), nullable=False),
         sa.Column("updated_at", sa.DateTime(timezone=True), nullable=False),

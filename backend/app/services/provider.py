@@ -40,6 +40,7 @@ class MockMarketProvider(MarketProvider):
                 "distance_52w_high": -4.2,
                 "distance_52w_low": 18.5,
                 "volume_spike": 1.2,
+                "return_3y": 14.7,
                 "last_price": 3030.2,
                 "change_pct": 1.1,
             }

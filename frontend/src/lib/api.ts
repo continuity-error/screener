@@ -14,14 +14,14 @@ async function fetchJson<T>(path: string, fallback: T): Promise<T> {
 
 export const getSnapshots = () =>
   fetchJson<MarketSnapshot[]>("/market/snapshots", [
-    { index_name: "NIFTY 50", last_price: 24512.4, change_pct: 0.78, captured_at: new Date().toISOString() },
-    { index_name: "SENSEX", last_price: 80411.1, change_pct: 0.69, captured_at: new Date().toISOString() },
+    { index_name: "Demo NIFTY 50", last_price: 0, change_pct: 0, captured_at: new Date().toISOString() },
+    { index_name: "Demo SENSEX", last_price: 0, change_pct: 0, captured_at: new Date().toISOString() },
   ]);
 
 export const getTicker = () =>
   fetchJson<TickerItem[]>("/market/ticker", [
-    { symbol: "RELIANCE", last_price: 3030.2, change_pct: 1.1 },
-    { symbol: "HDFCBANK", last_price: 1772.8, change_pct: -0.4 },
+    { symbol: "DEMO1", last_price: 0, change_pct: 0 },
+    { symbol: "DEMO2", last_price: 0, change_pct: 0 },
   ]);
 
 export const getStocks = () => fetchJson<Stock[]>("/stocks", []);

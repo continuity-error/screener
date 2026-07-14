@@ -39,9 +39,9 @@ def execute_strategy(strategy_id: int, db: Session = Depends(get_db), _: User = 
         if rules.get("roe_gt") is not None:
             q = q.filter(Stock.roe > float(rules["roe_gt"]))
         if rules.get("return_3y_gt") is not None:
-            q = q.filter(Stock.change_pct > float(rules["return_3y_gt"]))
+            q = q.filter(Stock.return_3y > float(rules["return_3y_gt"]))
         for s in q.limit(100).all():
-            matches.append({"name": s.symbol, "score": s.roe + s.change_pct})
+            matches.append({"name": s.symbol, "score": s.roe + s.return_3y})
     elif strategy.asset_type == "scheme":
         q = db.query(Scheme)
         if rules.get("return_3y_gt") is not None:

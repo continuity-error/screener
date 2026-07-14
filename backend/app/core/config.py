@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     app_name: str = "Custom Scheme Screener API"
     environment: str = Field(default="development")
     debug: bool = False
-    secret_key: str = Field(default="change-me")
+    secret_key: str = Field(default="dev-only-please-change-35d8ec6a6f2f4fd9")
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
 
@@ -18,6 +18,10 @@ class Settings(BaseSettings):
     cors_origins: list[str] = Field(default=["http://localhost:3000"])
     rate_limit: str = "60/minute"
     market_cache_ttl: int = 30
+
+    def model_post_init(self, __context) -> None:  # type: ignore[override]
+        if self.environment.lower() == "production" and self.secret_key.startswith("dev-only-please-change"):
+            raise ValueError("SECRET_KEY must be overridden in production")
 
 
 @lru_cache

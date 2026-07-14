@@ -31,6 +31,7 @@ class Stock(Base):
     distance_52w_high: Mapped[float] = mapped_column(Float, default=0)
     distance_52w_low: Mapped[float] = mapped_column(Float, default=0)
     volume_spike: Mapped[float] = mapped_column(Float, default=0)
+    return_3y: Mapped[float] = mapped_column(Float, default=0)
     last_price: Mapped[float] = mapped_column(Float, default=0)
     change_pct: Mapped[float] = mapped_column(Float, default=0)
     updated_at: Mapped[datetime] = mapped_column(

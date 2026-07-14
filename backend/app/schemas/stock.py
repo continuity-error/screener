@@ -23,5 +23,6 @@ class StockOut(BaseModel):
     distance_52w_high: float
     distance_52w_low: float
     volume_spike: float
+    return_3y: float
     last_price: float
     change_pct: float
