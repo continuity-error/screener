@@ -72,7 +72,7 @@ flowchart LR
 ### Option A: one-command startup with Docker (recommended)
 
 ```bash
-cd /home/runner/work/screener/screener
+cd <project-root>
 docker compose up --build
 ```
 
@@ -83,7 +83,7 @@ Services:
 Stop everything:
 
 ```bash
-cd /home/runner/work/screener/screener
+cd <project-root>
 docker compose down
 ```
 
@@ -97,25 +97,25 @@ Prerequisites:
 1) Start database + Redis:
 
 ```bash
-cd /home/runner/work/screener/screener
+cd <project-root>
 docker compose up -d db redis
 ```
 
 2) Configure backend env for local hostnames:
 
 ```bash
-cd /home/runner/work/screener/screener/backend
+cd <project-root>/backend
 cp .env.example .env
 ```
 
-Then update `/home/runner/work/screener/screener/backend/.env`:
+Then update `<project-root>/backend/.env`:
 - `DATABASE_URL=postgresql+psycopg://postgres@localhost:5432/screener`
 - `REDIS_URL=redis://localhost:6379/0`
 
 3) Start backend API:
 
 ```bash
-cd /home/runner/work/screener/screener/backend
+cd <project-root>/backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -127,13 +127,13 @@ uvicorn app.main:app --reload --port 8000
 4) (Optional) Run Celery worker + beat in separate terminals:
 
 ```bash
-cd /home/runner/work/screener/screener/backend
+cd <project-root>/backend
 source .venv/bin/activate
 celery -A app.core.celery_app.celery_app worker -l INFO
 ```
 
 ```bash
-cd /home/runner/work/screener/screener/backend
+cd <project-root>/backend
 source .venv/bin/activate
 celery -A app.core.celery_app.celery_app beat -l INFO
 ```
@@ -141,7 +141,7 @@ celery -A app.core.celery_app.celery_app beat -l INFO
 5) Start frontend:
 
 ```bash
-cd /home/runner/work/screener/screener/frontend
+cd <project-root>/frontend
 npm install
 npm run dev
 ```
