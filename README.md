@@ -111,7 +111,7 @@ cp .env.example .env
 ```
 
 Edit `<project-root>/backend/.env` and ensure these values:
-- `DATABASE_URL` format is `postgresql+psycopg://DB_USER:DB_PASSWORD` + `@localhost:5432/screener`
+- `DATABASE_URL` format is `postgresql+psycopg://DB_USER:DB_PASSWORD\@localhost:5432/screener`
 - `REDIS_URL=redis://localhost:6379/0`
 
 If you started Postgres with Docker Compose in step 1, the default credentials are `DB_USER=postgres` and `DB_PASSWORD=postgres`.
