@@ -67,43 +67,90 @@ flowchart LR
 - Validate lint/test/build paths for backend and frontend.
 - Finalize production-ready docker setup.
 
-## Backend local run
+## Boot up instructions
+
+`<project-root>` below means your local clone root for this repository.
+
+### Option A: one-command startup with Docker (recommended)
 
 ```bash
-cd /home/runner/work/screener/screener/backend
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-alembic upgrade head
-python scripts/seed.py
-uvicorn app.main:app --reload --port 8000
-```
-
-Run worker + beat:
-
-```bash
-cd /home/runner/work/screener/screener/backend
-celery -A app.core.celery_app.celery_app worker -l INFO
-celery -A app.core.celery_app.celery_app beat -l INFO
-```
-
-## Frontend local run
-
-```bash
-cd /home/runner/work/screener/screener/frontend
-npm install
-npm run dev
-```
-
-## Docker end-to-end run
-
-```bash
-cd /home/runner/work/screener/screener
+cd <project-root>
 docker compose up --build
 ```
 
 Services:
 - Frontend: http://localhost:3000
 - Backend API/OpenAPI: http://localhost:8000/docs
+
+Stop everything:
+
+```bash
+cd <project-root>
+docker compose down
+```
+
+### Option B: local development startup
+
+Prerequisites:
+- Python 3.11+
+- Node.js 20+
+- Docker (only for local Postgres + Redis)
+
+1) Start database + Redis:
+
+```bash
+cd <project-root>
+docker compose up -d db redis
+```
+
+2) Configure backend env for local hostnames:
+
+```bash
+cd <project-root>/backend
+cp .env.example .env
+```
+
+Edit `<project-root>/backend/.env` and ensure these values:
+- `DATABASE_URL` format is `postgresql+psycopg://DB_USER:DB_PASSWORD@localhost:5432/screener`
+- `REDIS_URL=redis://localhost:6379/0`
+
+If you started Postgres with Docker Compose in step 1, the default credentials are `DB_USER=postgres` and `DB_PASSWORD=postgres`.
+These defaults are for local development only and should never be used in production.
+You can keep the rest of the values from `.env.example` as-is for local development.
+
+3) Start backend API:
+
+```bash
+cd <project-root>/backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+alembic upgrade head
+python scripts/seed.py
+uvicorn app.main:app --reload --port 8000
+```
+
+4) (Optional) Run Celery worker + beat in separate terminals:
+
+```bash
+cd <project-root>/backend
+source .venv/bin/activate
+celery -A app.core.celery_app.celery_app worker -l INFO
+```
+
+```bash
+cd <project-root>/backend
+source .venv/bin/activate
+celery -A app.core.celery_app.celery_app beat -l INFO
+```
+
+5) Start frontend:
+
+```bash
+cd <project-root>/frontend
+npm install
+npm run dev
+```
 
 ## API coverage
 - `GET /api/v1/market/snapshots`
