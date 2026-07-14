@@ -111,10 +111,11 @@ cp .env.example .env
 ```
 
 Edit `<project-root>/backend/.env` and ensure these values:
-- `DATABASE_URL` points to your local Postgres at `localhost:5432/screener` using the DB credentials for your local setup
+- `DATABASE_URL` uses the format `postgresql+psycopg://DB_USER:DB_PASSWORD at localhost:5432/screener`
 - `REDIS_URL=redis://localhost:6379/0`
 
 If you started Postgres with Docker Compose in step 1, the default credentials are `DB_USER=postgres` and `DB_PASSWORD=postgres`.
+These defaults are for local development only and should never be used in production.
 You can keep the rest of the values from `.env.example` as-is for local development.
 
 3) Start backend API:
