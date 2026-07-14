@@ -108,7 +108,7 @@ cd <project-root>/backend
 cp .env.example .env
 ```
 
-Then update `<project-root>/backend/.env`:
+Edit `<project-root>/backend/.env` and ensure these values:
 - `DATABASE_URL=postgresql+psycopg://postgres@localhost:5432/screener`
 - `REDIS_URL=redis://localhost:6379/0`
 
