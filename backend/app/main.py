@@ -38,7 +38,7 @@ async def request_context(request: Request, call_next):
 
 @app.get("/healthz")
 @limiter.limit(settings.rate_limit)
-def health(_: Request):
+def health(request: Request):
     return {"status": "ok"}
 
 
