@@ -69,6 +69,8 @@ flowchart LR
 
 ## Boot up instructions
 
+`<project-root>` below means your local clone root for this repository.
+
 ### Option A: one-command startup with Docker (recommended)
 
 ```bash
@@ -109,10 +111,10 @@ cp .env.example .env
 ```
 
 Edit `<project-root>/backend/.env` and ensure these values:
-- `DATABASE_URL` points to your local Postgres at `localhost:5432/screener` using your local DB username/password
+- `DATABASE_URL` points to your local Postgres at `localhost:5432/screener` using the DB credentials for your local setup
 - `REDIS_URL=redis://localhost:6379/0`
 
-If you use the default Docker Compose DB credentials, set `DB_USER=postgres` and `DB_PASSWORD=postgres`.
+If you started Postgres with Docker Compose in step 1, the default credentials are `DB_USER=postgres` and `DB_PASSWORD=postgres`.
 You can keep the rest of the values from `.env.example` as-is for local development.
 
 3) Start backend API:
