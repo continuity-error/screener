@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from app.core.database import get_db
+from app.models.scheme import Scheme
 from app.schemas.scheme import SchemeFilter, SchemeOut
 from app.services.screeners import query_schemes
 
@@ -31,7 +32,7 @@ def list_schemes(
     )
     rows = (
         query_schemes(db, filters)
-        .order_by("name")
+        .order_by(Scheme.name)
         .offset((page - 1) * page_size)
         .limit(page_size)
         .all()

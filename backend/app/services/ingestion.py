@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 import pandas as pd
 from sqlalchemy.orm import Session
 from app.models.job import JobRun
@@ -16,7 +16,7 @@ def _start_job(db: Session, name: str) -> JobRun:
 
 
 def _finish_job(db: Session, run: JobRun, summary: str, status: str = "success") -> None:
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     run.status = status
     run.finished_at = now
     run.duration_seconds = (now - run.started_at).total_seconds()

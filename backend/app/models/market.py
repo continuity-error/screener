@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import DateTime, Float, String
 from sqlalchemy.orm import Mapped, mapped_column
 from app.core.database import Base
@@ -11,7 +11,9 @@ class MarketSnapshot(Base):
     index_name: Mapped[str] = mapped_column(String(64), index=True)
     last_price: Mapped[float] = mapped_column(Float)
     change_pct: Mapped[float] = mapped_column(Float)
-    captured_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, index=True)
+    captured_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True
+    )
 
 
 class Stock(Base):
@@ -31,4 +33,6 @@ class Stock(Base):
     volume_spike: Mapped[float] = mapped_column(Float, default=0)
     last_price: Mapped[float] = mapped_column(Float, default=0)
     change_pct: Mapped[float] = mapped_column(Float, default=0)
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
+    )

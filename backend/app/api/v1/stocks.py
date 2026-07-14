@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, Query
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from app.core.database import get_db
+from app.models.market import Stock
 from app.schemas.stock import StockFilter, StockOut
 from app.services.screeners import query_stocks
 import csv
@@ -34,7 +35,7 @@ def list_stocks(
     )
     rows = (
         query_stocks(db, filters)
-        .order_by("symbol")
+        .order_by(Stock.symbol)
         .offset((page - 1) * page_size)
         .limit(page_size)
         .all()

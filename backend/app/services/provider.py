@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class MarketProvider(ABC):
@@ -20,7 +20,7 @@ class SchemeProvider(ABC):
 
 class MockMarketProvider(MarketProvider):
     def fetch_indices(self) -> list[dict]:
-        now = datetime.utcnow().isoformat()
+        now = datetime.now(timezone.utc).isoformat()
         return [
             {"index_name": "NIFTY 50", "last_price": 24512.4, "change_pct": 0.78, "captured_at": now},
             {"index_name": "SENSEX", "last_price": 80411.11, "change_pct": 0.69, "captured_at": now},
