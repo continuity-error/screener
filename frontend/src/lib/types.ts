@@ -1,0 +1,30 @@
+export type TickerItem = { symbol: string; last_price: number; change_pct: number };
+export type MarketSnapshot = { index_name: string; last_price: number; change_pct: number; captured_at: string };
+export type Stock = {
+  symbol: string;
+  company_name: string;
+  exchange: string;
+  sector: string;
+  market_cap: number;
+  pe_ratio: number;
+  roe: number;
+  debt_to_equity: number;
+  distance_52w_high: number;
+  distance_52w_low: number;
+  volume_spike: number;
+  last_price: number;
+  change_pct: number;
+};
+export type Scheme = {
+  code: string;
+  name: string;
+  category: string;
+  aum: number;
+  expense_ratio: number;
+  return_1y: number;
+  return_3y: number;
+  return_5y: number;
+  volatility: number;
+  max_drawdown: number;
+  nav: number;
+};
