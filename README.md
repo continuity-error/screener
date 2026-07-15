@@ -148,9 +148,12 @@ celery -A app.core.celery_app.celery_app beat -l INFO
 
 ```bash
 cd <project-root>/frontend
+cp .env.example .env.local
 npm install
 npm run dev
 ```
+
+The default local frontend env points at `http://localhost:8000/api/v1`.
 
 ## API coverage
 - `GET /api/v1/market/snapshots`
